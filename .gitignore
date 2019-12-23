@@ -1,0 +1,13 @@
+# IDE files
+.idea/
+.settings/
+.cproject
+.project
+.mxproject
+
+# Build files
+cmake-build-debug/
+Debug/
+
+# Generated CMakeLists.txt
+CMakeLists.txt
