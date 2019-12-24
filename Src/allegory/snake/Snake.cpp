@@ -1,7 +1,9 @@
 #include "Snake.h"
 #include "Point.h"
 
+#include <algorithm>
 #include <utility>
+#include <iostream>
 
 namespace allegory::snake {
 
@@ -14,6 +16,12 @@ namespace allegory::snake {
     void Snake::walk(Direction direction, std::unordered_set<Point> &food) {
         const Point &head = this->head();
         const Point &newHead = head.computeNeighbor(direction);
+
+        if (std::find(body.begin(), body.end(), newHead) != body.end()) {
+            std::cout << "Snake reached herself! GAME OVER." << std::endl;
+            return;
+        }
+
         if (food.find(newHead) == food.end()) {
             body.pop_back();
         } else {
