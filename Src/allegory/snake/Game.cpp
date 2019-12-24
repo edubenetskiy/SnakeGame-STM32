@@ -42,7 +42,7 @@ namespace allegory::snake {
             snake.walk(currentDirection, food, displayDevice.geometry());
 
             renderAndFlush();
-            timer.sleepFor(std::chrono::milliseconds(100));
+            timer.sleepFor(level.stepInterval());
         }
 
 #pragma clang diagnostic pop
@@ -60,10 +60,9 @@ namespace allegory::snake {
         displayDevice.flush();
     }
 
-    Game::Game(display::AbstractDisplayDevice &display,
-               keyboard::AbstractKeyboard &keyboard,
-               timer::AbstractTimer &timer)
-            : displayDevice(display), food(), keyboard(keyboard), timer(timer) {
+    Game::Game(display::AbstractDisplayDevice &display, keyboard::AbstractKeyboard &keyboard,
+               timer::AbstractTimer &timer, GameLevel level)
+            : displayDevice(display), food(), keyboard(keyboard), timer(timer), level(level) {
     }
 
     constexpr std::optional<Direction> Game::convertKeyToDirection(keyboard::Key key) {

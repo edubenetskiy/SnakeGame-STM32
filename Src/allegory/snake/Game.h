@@ -4,6 +4,7 @@
 #include <unordered_set>
 #include "../display/AbstractDisplayDevice.h"
 #include "Snake.h"
+#include "GameLevel.h"
 #include "../keyboard/AbstractKeyboard.h"
 #include "../timer/AbstractTimer.h"
 
@@ -12,13 +13,13 @@ namespace allegory::snake {
     class Game {
 
     public:
-        Game(display::AbstractDisplayDevice &display,
-             keyboard::AbstractKeyboard &keyboard,
-             timer::AbstractTimer &timer);
+        Game(display::AbstractDisplayDevice &display, keyboard::AbstractKeyboard &keyboard,
+             timer::AbstractTimer &timer, GameLevel level);
 
         void invokeMainLoop();
 
     private:
+        GameLevel level;
         display::AbstractDisplayDevice &displayDevice;
         keyboard::AbstractKeyboard &keyboard;
         timer::AbstractTimer &timer;

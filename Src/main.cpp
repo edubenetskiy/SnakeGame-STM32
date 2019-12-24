@@ -33,6 +33,7 @@
 #include "allegory/stm32/StmKeyboard.h"
 #include "allegory/stm32/StmTimer.h"
 #include "allegory/snake/SplashScreen.h"
+#include "allegory/snake/MainMenu.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -117,7 +118,10 @@ int main(void) {
         snake::SplashScreen splashScreen = snake::SplashScreen(oled, keyboard);
         splashScreen.run();
 
-        snake::Game game = snake::Game(oled, keyboard, timer);
+        snake::MainMenu mainMenu = snake::MainMenu(oled, keyboard, timer);
+        snake::GameLevel level = mainMenu.run();
+
+        snake::Game game = snake::Game(oled, keyboard, timer, level);
         game.invokeMainLoop();
     }
 #pragma clang diagnostic pop
