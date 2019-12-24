@@ -21,6 +21,8 @@ namespace allegory::snake {
         Snake snake;
         Direction currentDirection = Direction::EAST;
         std::unordered_set<Point> food;
+
+        void renderAndFlush() const;
     };
 }
 #endif //SNAKE_STM32_GAMEMENU_H

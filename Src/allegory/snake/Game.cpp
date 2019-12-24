@@ -20,9 +20,6 @@ namespace allegory::snake {
 #pragma clang diagnostic ignored "-Wmissing-noreturn"
 
         while (true) {
-            displayDevice.clear();
-            SnakeRenderer::render(displayDevice, snake);
-
             switch (keyboard.pollKey()) {
                 case keyboard::Key::FOUR:
                     currentDirection = Direction::WEST;
@@ -42,14 +39,22 @@ namespace allegory::snake {
 
             snake.walk(currentDirection);
 
-            for (auto meal: food) {
-                displayDevice.drawPixel(meal.getX(), meal.getY(), Color::WHITE);
-            }
-            displayDevice.flush();
+            renderAndFlush();
             HAL_Delay(100);
         }
 
 #pragma clang diagnostic pop
+    }
+
+    void Game::renderAndFlush() const {
+        this->displayDevice.clear();
+        SnakeRenderer::render(this->displayDevice, this->snake);
+
+        for (auto meal: this->food) {
+            this->displayDevice.drawPixel(meal.getX(), meal.getY(), Color::WHITE);
+        }
+
+        displayDevice.flush();
     }
 
     Game::Game(display::AbstractDisplayDevice &display, keyboard::AbstractKeyboard &keyboard)
