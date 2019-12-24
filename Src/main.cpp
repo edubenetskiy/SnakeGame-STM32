@@ -99,7 +99,11 @@ int main(void) {
     MX_USART6_UART_Init();
     MX_I2C1_Init();
     /* USER CODE BEGIN 2 */
-
+    using namespace allegory;
+    stm32::OledDisplay oled = stm32::OledDisplay();
+    stm32::StmKeyboard keyboard = stm32::StmKeyboard();
+    stm32::StmTimer timer = stm32::StmTimer();
+    oled.init();
     /* USER CODE END 2 */
 
     /* Infinite loop */
@@ -110,12 +114,6 @@ int main(void) {
         /* USER CODE END WHILE */
 
         /* USER CODE BEGIN 3 */
-        using namespace allegory;
-        stm32::OledDisplay oled = stm32::OledDisplay();
-        stm32::StmKeyboard keyboard = stm32::StmKeyboard();
-        stm32::StmTimer timer = stm32::StmTimer();
-        oled.init();
-
         snake::SplashScreen splashScreen = snake::SplashScreen(oled, keyboard);
         splashScreen.run();
 
