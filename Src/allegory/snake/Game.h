@@ -27,6 +27,8 @@ namespace allegory::snake {
         std::unordered_set<Point> food;
 
         void renderAndFlush() const;
+
+        static constexpr std::optional<Direction> convertKeyToDirection(keyboard::Key key);
     };
 }
 #endif //SNAKE_STM32_GAMEMENU_H

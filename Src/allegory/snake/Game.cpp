@@ -9,6 +9,7 @@
 namespace allegory::snake {
 
     using display::Color;
+    using keyboard::Key;
 
     static const int MAX_NUM_APPLES = 5;
 
@@ -30,21 +31,12 @@ namespace allegory::snake {
                 food.insert(apple);
             }
 
-            switch (keyboard.pollKey()) {
-                case keyboard::Key::FOUR:
-                    currentDirection = Direction::WEST;
-                    break;
-                case keyboard::Key::SIX:
-                    currentDirection = Direction::EAST;
-                    break;
-                case keyboard::Key::TWO:
-                    currentDirection = Direction::NORTH;
-                    break;
-                case keyboard::Key::EIGHT:
-                    currentDirection = Direction::SOUTH;
-                    break;
-                default:
-                    break;
+            Key pressedKey = keyboard.pollKey();
+            if (pressedKey != Key::NONE) {
+                std::optional<Direction> newDirection = convertKeyToDirection(pressedKey);
+                if (newDirection.has_value() && newDirection != currentDirection.opposite()) {
+                    currentDirection = newDirection.value();
+                }
             }
 
             snake.walk(currentDirection, food);
@@ -72,5 +64,21 @@ namespace allegory::snake {
                keyboard::AbstractKeyboard &keyboard,
                timer::AbstractTimer &timer)
             : displayDevice(display), food(), keyboard(keyboard), timer(timer) {
+    }
+
+    constexpr std::optional<Direction> Game::convertKeyToDirection(keyboard::Key key) {
+        using keyboard::Key;
+        switch (key) {
+            case Key::FOUR:
+                return Direction::WEST;
+            case Key::SIX:
+                return Direction::EAST;
+            case Key::TWO:
+                return Direction::NORTH;
+            case Key::EIGHT:
+                return Direction::SOUTH;
+            default:
+                return std::nullopt;
+        }
     }
 }
