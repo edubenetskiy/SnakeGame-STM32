@@ -16,7 +16,7 @@ namespace allegory::snake {
 
         explicit Snake(std::deque<Point> body);
 
-        void walk(Direction direction, std::unordered_set<Point> &food, Geometry geometry);
+        bool walk(Direction direction, std::unordered_set<Point> &food, Geometry geometry);
 
     public:
         size_t length();

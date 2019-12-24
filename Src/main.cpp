@@ -105,6 +105,10 @@ int main(void) {
     stm32::StmKeyboard keyboard = stm32::StmKeyboard();
     stm32::StmTimer timer = stm32::StmTimer();
     oled.init();
+
+    // Show splash screen
+    snake::SplashScreen splashScreen = snake::SplashScreen(oled, keyboard);
+    splashScreen.run();
     /* USER CODE END 2 */
 
     /* Infinite loop */
@@ -115,9 +119,6 @@ int main(void) {
         /* USER CODE END WHILE */
 
         /* USER CODE BEGIN 3 */
-        snake::SplashScreen splashScreen = snake::SplashScreen(oled, keyboard);
-        splashScreen.run();
-
         snake::MainMenu mainMenu = snake::MainMenu(oled, keyboard, timer);
         snake::GameLevel level = mainMenu.run();
 

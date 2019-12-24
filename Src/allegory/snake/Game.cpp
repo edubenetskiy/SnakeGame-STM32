@@ -5,6 +5,7 @@
 
 #include "Game.h"
 #include "SnakeRenderer.h"
+#include "../fonts/Text.h"
 
 namespace allegory::snake {
 
@@ -39,9 +40,31 @@ namespace allegory::snake {
                 }
             }
 
-            snake.walk(currentDirection, food, displayDevice.geometry());
+            bool walked = snake.walk(currentDirection, food, displayDevice.geometry());
+            bool gameOver = !walked;
+
+            this->displayDevice.clear();
+
+            if (gameOver) {
+                allegory::fonts::Text("Game Over", allegory::fonts::FONT_11x18).renderCentered(displayDevice, 10);
+                allegory::fonts::Text("Press 0 to replay", allegory::fonts::FONT_7x10).renderCentered(displayDevice, 50);
+            };
 
             renderAndFlush();
+
+            if (gameOver) {
+                while (keyboard.pollKey() != Key::ELEVEN) {
+                    // Wait
+                    renderAndFlush();
+                }
+                break;
+            }
+
+            if (pressedKey == Key::ELEVEN) {
+                std::cout << "Returning to menu" << std::endl;
+                break;
+            }
+
             timer.sleepFor(level.stepInterval());
         }
 
@@ -49,7 +72,6 @@ namespace allegory::snake {
     }
 
     void Game::renderAndFlush() const {
-        this->displayDevice.clear();
         SnakeRenderer::render(this->displayDevice, this->snake);
 
         for (auto meal: this->food) {

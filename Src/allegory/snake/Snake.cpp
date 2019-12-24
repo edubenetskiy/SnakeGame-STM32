@@ -13,7 +13,7 @@ namespace allegory::snake {
         return body;
     }
 
-    void Snake::walk(Direction direction, std::unordered_set<Point> &food, Geometry geometry) {
+    bool Snake::walk(Direction direction, std::unordered_set<Point> &food, Geometry geometry) {
         const Point &head = this->head();
 
         if ((head.getY() == 0 && direction == Direction::NORTH) ||
@@ -21,14 +21,14 @@ namespace allegory::snake {
             (head.getY() == geometry.height - 1 && direction == Direction::SOUTH) ||
             (head.getX() == geometry.width - 1 && direction == Direction::EAST)) {
             std::cout << "Snake reached edge of screen! GAME OVER." << std::endl;
-            return;
+            return false;
         }
 
         const Point &newHead = head.computeNeighbor(direction);
 
         if (std::find(body.begin(), body.end(), newHead) != body.end()) {
             std::cout << "Snake reached herself! GAME OVER." << std::endl;
-            return;
+            return false;
         }
 
         if (food.find(newHead) == food.end()) {
@@ -37,6 +37,8 @@ namespace allegory::snake {
             food.erase(newHead);
         }
         body.push_front(newHead);
+
+        return true;
     }
 
     size_t Snake::length() {

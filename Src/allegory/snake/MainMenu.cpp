@@ -35,6 +35,7 @@ allegory::snake::GameLevel allegory::snake::MainMenu::run() {
         std::string levelString = stringStream.str();
 
         allegory::fonts::Text(levelString, allegory::fonts::FONT_7x10).renderCentered(displayDevice, 35);
+        allegory::fonts::Text("Press 5 to play", allegory::fonts::FONT_7x10).renderCentered(displayDevice, 50);
         displayDevice.flush();
 
         timer.sleepFor(std::chrono::milliseconds(75));
