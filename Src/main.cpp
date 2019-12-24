@@ -32,6 +32,7 @@
 #include "allegory/snake/Game.h"
 #include "allegory/stm32/StmKeyboard.h"
 #include "allegory/stm32/StmTimer.h"
+#include "allegory/snake/SplashScreen.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -114,6 +115,10 @@ int main(void) {
         stm32::StmKeyboard keyboard = stm32::StmKeyboard();
         stm32::StmTimer timer = stm32::StmTimer();
         oled.init();
+
+        snake::SplashScreen splashScreen = snake::SplashScreen(oled, keyboard);
+        splashScreen.run();
+
         snake::Game game = snake::Game(oled, keyboard, timer);
         game.invokeMainLoop();
     }
