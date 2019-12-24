@@ -26,6 +26,10 @@ namespace allegory::snake {
 
         constexpr bool operator!=(Direction a) const { return value != a.value; }
 
+        constexpr bool operator==(Value a) const { return value == a; }
+
+        constexpr bool operator!=(Value a) const { return value != a; }
+
         Direction opposite() {
             return Direction(static_cast<Value>((value + 2u) % 4));
         }

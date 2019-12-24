@@ -14,4 +14,8 @@ namespace allegory::display {
 		}
 	}
 
+    Geometry AbstractDisplayDevice::geometry() {
+        return Geometry(width(), height());
+    }
+
 }
