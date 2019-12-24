@@ -16,6 +16,7 @@ namespace allegory::snake {
         const Point &newHead = head.computeNeighbor(direction);
         if (food.find(newHead) == food.end()) {
             body.pop_back();
+        } else {
             food.erase(newHead);
         }
         body.push_front(newHead);
