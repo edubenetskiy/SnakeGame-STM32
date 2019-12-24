@@ -3,7 +3,6 @@
 #include <thread>
 #include "Game.h"
 #include "SnakeRenderer.h"
-#include "stm32f4xx_hal.h"
 
 namespace allegory::snake {
 
@@ -40,7 +39,7 @@ namespace allegory::snake {
             snake.walk(currentDirection);
 
             renderAndFlush();
-            HAL_Delay(100);
+            timer.sleepFor(std::chrono::milliseconds(100));
         }
 
 #pragma clang diagnostic pop
@@ -57,7 +56,9 @@ namespace allegory::snake {
         displayDevice.flush();
     }
 
-    Game::Game(display::AbstractDisplayDevice &display, keyboard::AbstractKeyboard &keyboard)
-            : displayDevice(display), food(), keyboard(keyboard) {
+    Game::Game(display::AbstractDisplayDevice &display,
+               keyboard::AbstractKeyboard &keyboard,
+               timer::AbstractTimer &timer)
+            : displayDevice(display), food(), keyboard(keyboard), timer(timer) {
     }
 }

@@ -25,13 +25,13 @@
 #include "i2c.h"
 #include "usart.h"
 #include "gpio.h"
-#include "allegory/stm32/OledDisplay.h"
-#include "allegory/snake/Game.h"
-#include "allegory/stm32/StmKeyboard.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "allegory/stm32/OledDisplay.h"
+#include "allegory/snake/Game.h"
+#include "allegory/stm32/StmKeyboard.h"
+#include "allegory/stm32/StmTimer.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -112,8 +112,9 @@ int main(void) {
         using namespace allegory;
         stm32::OledDisplay oled = stm32::OledDisplay();
         stm32::StmKeyboard keyboard = stm32::StmKeyboard();
+        stm32::StmTimer timer = stm32::StmTimer();
         oled.init();
-        snake::Game game = snake::Game(oled, keyboard);
+        snake::Game game = snake::Game(oled, keyboard, timer);
         game.invokeMainLoop();
     }
 #pragma clang diagnostic pop
