@@ -36,7 +36,7 @@ namespace allegory::snake {
                     break;
             }
 
-            snake.walk(currentDirection);
+            snake.walk(currentDirection, food);
 
             renderAndFlush();
             timer.sleepFor(std::chrono::milliseconds(100));

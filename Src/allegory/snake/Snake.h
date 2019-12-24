@@ -3,6 +3,7 @@
 
 #include <cstdint>
 #include <deque>
+#include <unordered_set>
 #include "Direction.h"
 #include "Point.h"
 
@@ -14,6 +15,8 @@ namespace allegory::snake {
 
         explicit Snake(std::deque<Point> body);
 
+        void walk(Direction direction, std::unordered_set<Point> &food);
+
     public:
         size_t length();
 
@@ -22,8 +25,6 @@ namespace allegory::snake {
         Point tail();
 
         const std::deque<Point> &getBody() const;
-
-        void walk(Direction direction);
 
     private:
         std::deque<Point> body;

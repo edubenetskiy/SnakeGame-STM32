@@ -11,10 +11,13 @@ namespace allegory::snake {
         return body;
     }
 
-    void Snake::walk(Direction direction) {
-        body.pop_back();
+    void Snake::walk(Direction direction, std::unordered_set<Point> &food) {
         const Point &head = this->head();
         const Point &newHead = head.computeNeighbor(direction);
+        if (food.find(newHead) == food.end()) {
+            body.pop_back();
+            food.erase(newHead);
+        }
         body.push_front(newHead);
     }
 
